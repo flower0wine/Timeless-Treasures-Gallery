@@ -1,0 +1,87 @@
+{
+  "name": "treasure",
+  "version": "0.0.1",
+  "author": {
+    "name": "flowerwine",
+    "email": "2914518090@qq.com"
+  },
+  "description": "臻宝轩，这是一个塞下你所有宝藏的地方",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && babel dist --out-dir dist --extensions \".js,.vue,.ts,.tsx\"",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write . && git add -A .",
+    "check": "npm run lint && npm run format",
+    "type-check": "vue-tsc --build --force",
+    "prepare": "node scripts/install.mjs"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
+    "vue": "^3.4.29"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.25.2",
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-typescript": "^7.24.7",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^8.0.0",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^20.14.5",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "@typescript-eslint/parser": "^8.2.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-standard": "^8.0.1",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "chalk": "^4.1.2",
+    "enquirer": "^2.3.6",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-vue": "^8.7.1",
+    "execa": "^4.1.0",
+    "globals": "^15.9.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^15.2.9",
+    "minimist": "1",
+    "npm-run-all2": "^6.2.0",
+    "prettier": "^3.3.3",
+    "sass": "^1.77.8",
+    "sass-loader": "^16.0.1",
+    "semver": "^7.3.7",
+    "typescript": "~5.4.0",
+    "typescript-eslint": "^8.2.0",
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.21"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "node scripts/pre-commit.js",
+      "commit-msg": "node scripts/commit-msg.js",
+      "prepare-commit-msg": "node scripts/prepare-commit-msg.js"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,jsx,tsx}": [
+      "eslint --cache --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
