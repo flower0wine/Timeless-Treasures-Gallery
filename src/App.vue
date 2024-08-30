@@ -7,8 +7,8 @@
             <Transition name="fade">
               <div class="img-header" v-if="menuVisible">
                 <img
-                  class="header-border"
-                  src="@/assets/menu-border.png"
+                  class="header-border lazyload"
+                  :data-src="getPictureUrl('menu-border.png')"
                   alt=""
                 />
                 <div class="header-title">臻宝轩</div>
@@ -22,15 +22,12 @@
             <MenuItem
               :content-visible="menuVisible"
               :close-icon-visible="menuVisible && Boolean(item.children)"
-              @menu-click="
-                menuItemVisibleList[index] = !menuItemVisibleList[index]
-              "
+              @menu-click="handleMenuItemClick(index)"
             >
               <template #icon>
-                <img
-                  :src="getMenuIconPath(item.icon)"
-                  class="menu-icon"
-                  alt=""
+                <TreasureCircleImg
+                  size="35px"
+                  :src="getPictureUrl(item.icon)"
                 />
               </template>
               <template #content>
@@ -46,14 +43,19 @@
           </template>
         </div>
       </Menu>
-      <div class="treasure-header">
-        <div class="site-info" v-if="menuVisible">
-          <a href="/">
-            <TreasureLogo />
-          </a>
+      <div class="treasure-content" :class="{ 'menu-close': !menuVisible }">
+        <div class="treasure-header">
+          <div class="site-info" v-if="menuVisible">
+            <a href="/">
+              <TreasureLogo />
+            </a>
+          </div>
+          <div class="menu-btn" @click="menuVisible = !menuVisible">
+            <MenuIcon />
+          </div>
         </div>
-        <div class="menu-btn" @click="menuVisible = !menuVisible">
-          <MenuIcon />
+        <div class="treasure-body">
+          <router-view />
         </div>
       </div>
     </div>
@@ -69,16 +71,22 @@ import { ref } from "vue";
 import MenuItem from "@/components/menu/MenuItem.vue";
 import MenuContent from "@/components/menu/MenuContent.vue";
 import { MENU_ORIGIN } from "@/menu";
+import { getPictureUrl } from "@/utils/tools";
+import TreasureCircleImg from "@/components/TreasureCircleImg.vue";
 
 const menuVisible = ref(true);
 const menuItemVisibleList = ref(Array(MENU_ORIGIN.length).fill(false));
 
-function getMenuIconPath(name: string) {
-  return new URL(`./assets/${name}`, import.meta.url).href;
+function handleMenuItemClick(index: number) {
+  menuItemVisibleList.value[index] = !menuItemVisibleList.value[index];
 }
 </script>
 
 <style lang="scss" scoped>
+$menuCloseWidth: 55px;
+$menuOpenWidth: 300px;
+$treasureHeaderHeight: 60px;
+
 .treasure-box {
   display: flex;
   min-height: 100vh;
@@ -89,22 +97,45 @@ function getMenuIconPath(name: string) {
   }
 
   :deep(.menu) {
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 1;
     flex-shrink: 0;
+    width: #{$menuOpenWidth};
     transition: width 0.4s ease-in-out;
+    background-color: #fff;
 
     &.close {
-      width: 55px;
+      width: #{$menuCloseWidth};
     }
   }
 
-  :deep(.treasure-header) {
-    flex-grow: 1;
+  .treasure-content {
+    position: fixed;
+    top: 0;
+    left: #{$menuOpenWidth};
+    width: calc(100% - #{$menuOpenWidth});
+    height: 100%;
+    transition: left 0.4s ease-in-out;
+
+    &.menu-close {
+      left: #{$menuCloseWidth};
+      width: calc(100% - #{$menuCloseWidth});
+    }
   }
 
   .menu-list {
     height: 100%;
     box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.treasure-content {
+  .treasure-body {
+    overflow-y: auto;
+    height: calc(100% - #{$treasureHeaderHeight});
+    padding: 20px;
   }
 }
 
@@ -114,7 +145,7 @@ function getMenuIconPath(name: string) {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60px;
+  height: #{$treasureHeaderHeight};
   user-select: none;
 
   .header-border {
@@ -138,6 +169,8 @@ function getMenuIconPath(name: string) {
 }
 
 .treasure-header {
+  position: relative;
+  z-index: 1;
   height: 60px;
   background-color: #fff;
   box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.1);
@@ -170,11 +203,6 @@ function getMenuIconPath(name: string) {
 .fade-enter-to,
 .fade-leave-from {
   opacity: 1;
-}
-
-.menu-icon {
-  width: 35px;
-  height: 35px;
 }
 
 .menu-title {

@@ -2,9 +2,7 @@
   <div class="treasure-header">
     <div class="site-info">
       <a href="/">
-        <div class="logo">
-          <img src="@/assets/treasure.png" alt="" />
-        </div>
+        <TreasureLogo />
       </a>
     </div>
     <div class="menu-btn">
@@ -15,6 +13,7 @@
 
 <script setup lang="ts">
 import MenuIcon from "@/components/svg/MenuIcon.vue";
+import TreasureLogo from "@/components/TreasureLogo.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -25,17 +24,6 @@ import MenuIcon from "@/components/svg/MenuIcon.vue";
   display: flex;
   align-items: center;
   padding: 0 20px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.logo img {
-  width: 30px;
-  height: 30px;
 }
 
 :deep(.menu-btn) {
