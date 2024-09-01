@@ -1,5 +1,6 @@
 <template>
   <div class="link-group">
+    <h1>{{ props.groupItem.title }}</h1>
     <div
       class="link-group-item"
       v-for="(item, index) in props.groupItem.children"

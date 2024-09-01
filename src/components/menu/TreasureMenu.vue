@@ -75,14 +75,29 @@ $menuOpenWidth: 300px;
 
   :deep(.menu-item) {
     overflow: hidden;
+    transition: background-color 0.2s ease-in-out;
 
     &:hover {
+      border-radius: 4px;
+      color: #fff;
       background-color: #f5f5f5;
+
+      .menu-title {
+        color: #da4545;
+      }
     }
 
     .down-icon {
       fill: #878787;
     }
+
+    .menu-title {
+      font-size: 16px;
+    }
+  }
+
+  :deep(.menu-content) {
+    padding-left: 20px;
   }
 
   .layer-two-menu-item {

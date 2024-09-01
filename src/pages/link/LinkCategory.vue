@@ -9,6 +9,7 @@
       </div>
       <div class="tab-bar-container">
         <TabBar
+          :active-index="activeIndex"
           :list="props.categoryItem.children"
           @change="handleTabBarChange"
         >
@@ -53,9 +54,12 @@ import LinkBox from "@/components/link/LinkBox.vue";
 import { getPictureUrl } from "@/utils/tools";
 import { ILinkItem } from "@/data/link.ts";
 import icons from "@/data/svg";
-import { computed, PropType, ref, shallowRef } from "vue";
+import { computed, PropType, ref, shallowRef, watch } from "vue";
 import Tooltip from "@/components/tooltip/Tooltip.vue";
 import TabBar from "@/components/tab/TabBar.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const props = defineProps({
   categoryItem: {
@@ -71,6 +75,20 @@ const siteLinks = computed(() => {
 });
 
 const iconComponents = shallowRef(icons);
+
+watch(
+  () => route.query.code,
+  (newCode) => {
+    const children = props.categoryItem.children;
+    if (children) {
+      const index = children.findIndex((item) => item.code === newCode);
+
+      if (index >= 0) {
+        activeIndex.value = index;
+      }
+    }
+  },
+);
 
 function handleTabBarChange(newIndex: number) {
   activeIndex.value = newIndex;

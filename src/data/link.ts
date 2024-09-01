@@ -34,6 +34,7 @@ const data: Array<ILinkItem> = [
         children: [
           {
             title: "常用 AI 图像工具",
+            code: "ai-image-tools",
             children: [
               {
                 title: "吐司 AI",
@@ -45,6 +46,7 @@ const data: Array<ILinkItem> = [
           },
           {
             title: "AI 插画生成",
+            code: "ai-painting",
             children: [
               {
                 title: "美图秀秀",
@@ -63,6 +65,7 @@ const data: Array<ILinkItem> = [
         children: [
           {
             title: "常用 AI 视频工具",
+            code: "ai-video-tools",
             children: [
               {
                 title: "AI 视频剪辑",

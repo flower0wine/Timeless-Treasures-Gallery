@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import "@/common.scss";
 import MenuIcon from "@/components/svg/MenuIcon.vue";
 import TreasureLogo from "@/components/TreasureLogo.vue";
 import { ref } from "vue";

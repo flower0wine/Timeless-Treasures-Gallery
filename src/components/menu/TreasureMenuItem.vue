@@ -2,6 +2,9 @@
   <RouterLink
     :to="{
       name: props.menuItem.route,
+      query: {
+        code: props.menuItem.code,
+      },
     }"
   >
     <MenuItem
@@ -95,7 +98,6 @@ function handleTreasureMenuItemClick({ index, item }) {
 }
 
 function handleCategoryItemClick(code: string) {
-  console.log("handleCategoryItemClick", code);
   const el = document.getElementById(code);
   if (el) {
     el.scrollIntoView({ behavior: "smooth", block: "center" });
