@@ -62,6 +62,7 @@ module.exports = {
     "vue/script-setup-uses-vars": "error",
     "vue/multi-word-component-names": "off",
     "vue/require-default-prop": "off",
+    "vue/no-export-in-script-setup": "off",
     "@typescript-eslint/no-require-imports": "off",
     "prettier/prettier": [
       "error",

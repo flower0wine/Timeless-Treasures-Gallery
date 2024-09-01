@@ -1,15 +1,17 @@
 <template>
-  <DefaultSlot
-    ref="defaultSlot"
-    @mouseenter="handleMouseEnter"
-    @mouseleave="handleMouseLeave"
+  <slot
+    v-bind="{
+      setRef,
+      onMouseenter: handleMouseEnter,
+      onMouseleave: handleMouseLeave,
+    }"
   />
   <Teleport to="body">
     <Transition name="fade">
       <div
         v-if="tooltipVisible"
         class="treasure-tooltip"
-        ref="tooltip"
+        ref="tooltipRef"
         :style="{
           top: position.top + 'px',
           left: position.left + 'px',
@@ -28,19 +30,28 @@
 
 <script setup lang="ts">
 import { nextTick, onMounted, reactive, ref, useSlots, watch } from "vue";
+import { getElementOffsetLeft, getElementOffsetTop } from "@/utils/element";
+import { warn } from "@/utils/tools";
 
 interface Component {
   $el: HTMLElement;
 }
 
-const slots = useSlots();
+/* const slots = useSlots();
 
 if (!slots.default) {
   throw new Error("Tooltip component must have a default slot");
 }
 
 const defaultSlots = slots.default();
-const DefaultSlot = defaultSlots[0];
+
+if (defaultSlots.length > 1) {
+  warn(
+    "Tooltip component should only have one default slot, the first one will be used",
+  );
+}
+
+const defaultSlot = defaultSlots[0]; */
 
 const tooltipVisible = ref(false);
 
@@ -66,8 +77,8 @@ const props = defineProps({
   },
 });
 
-const defaultSlot = ref<Component>(null as Component);
-const tooltip = ref<HTMLDivElement>(null as HTMLDivElement);
+const defaultSlotRef = ref<Component>(null as Component);
+const tooltipRef = ref<HTMLDivElement>(null as HTMLDivElement);
 
 const position = reactive({
   top: 0,
@@ -75,23 +86,30 @@ const position = reactive({
 });
 
 function calculatePosition() {
-  const defaultSlotEl = defaultSlot.value.$el;
+  const defaultSlotEl = defaultSlotRef.value.$el;
   const elInfo = defaultSlotEl.getBoundingClientRect();
-  const tooltipInfo = tooltip.value.getBoundingClientRect();
+  const tooltipInfo = tooltipRef.value.getBoundingClientRect();
+
+  const elInfoTop = getElementOffsetTop(defaultSlotEl);
+  const elInfoLeft = getElementOffsetLeft(defaultSlotEl);
 
   if (props.placement === "top") {
-    position.top = elInfo.top - tooltipInfo.height - 10;
-    position.left = elInfo.left + elInfo.width / 2 - tooltipInfo.width / 2;
+    position.top = elInfoTop - tooltipInfo.height - 10;
+    position.left = elInfoLeft + elInfo.width / 2 - tooltipInfo.width / 2;
   } else if (props.placement === "bottom") {
-    position.top = elInfo.top + elInfo.height + 10;
-    position.left = elInfo.left + elInfo.width / 2 - tooltipInfo.width / 2;
+    position.top = elInfoTop + elInfo.height + 10;
+    position.left = elInfoLeft + elInfo.width / 2 - tooltipInfo.width / 2;
   } else if (props.placement === "left") {
-    position.top = elInfo.top + elInfo.height / 2 - tooltipInfo.height / 2;
-    position.left = elInfo.left - tooltipInfo.width - 10;
+    position.top = elInfoTop + elInfo.height / 2 - tooltipInfo.height / 2;
+    position.left = elInfoLeft - tooltipInfo.width - 10;
   } else if (props.placement === "right") {
-    position.top = elInfo.top + elInfo.height / 2 - tooltipInfo.height / 2;
-    position.left = elInfo.left + elInfo.width + 10;
+    position.top = elInfoTop + elInfo.height / 2 - tooltipInfo.height / 2;
+    position.left = elInfoLeft + elInfo.width + 10;
   }
+}
+
+function setRef(el: Element) {
+  defaultSlotRef.value = el as Component;
 }
 
 function handleMouseEnter() {
@@ -111,17 +129,11 @@ watch([() => props.placement, () => props.content, tooltipVisible], () => {
 });
 
 onMounted(() => {
-  if (defaultSlots.length > 1) {
-    console.warn(
-      "Tooltip component should only have one default slot, the first one will be used",
+  /* if (!defaultSlot) {
+    warn(
+      "No available DOM elements were obtained under the default slot of Tooltip",
     );
-  }
-
-  if (!defaultSlot.value) {
-    console.warn(
-      "No available DOM elements were obtained under the root tag of Tooltip",
-    );
-  }
+  } */
 });
 </script>
 

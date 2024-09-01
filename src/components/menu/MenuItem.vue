@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import DownIcon from "@/components/svg/DownIcon.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { throttle } from "lodash";
 
 const props = defineProps({
@@ -39,6 +39,15 @@ const emits = defineEmits(["menu-click"]);
 const menuOpen = ref(false);
 
 const throttleHandleMenuClick = throttle(handleMenuClick, 300);
+
+watch(
+  () => props.closeIconVisible,
+  () => {
+    if (props.closeIconVisible) {
+      menuOpen.value = false;
+    }
+  },
+);
 
 function handleMenuClick(event: MouseEvent) {
   menuOpen.value = !menuOpen.value;
