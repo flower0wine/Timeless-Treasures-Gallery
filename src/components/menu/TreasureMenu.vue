@@ -26,7 +26,11 @@
           :menu-visible="props.menuVisible"
           v-bind="$attrs"
           @menu-click="handleTreasureMenuItemClick"
-        />
+        >
+          <template #icon>
+            <Component class="menu-icon" :is="icons[menuItem.icon]" />
+          </template>
+        </TreasureMenuItem>
       </div>
     </Menu>
   </div>
@@ -38,6 +42,7 @@ import TreasureLogo from "@/components/TreasureLogo.vue";
 import { MenuLinkItem } from "@/menu";
 import { getPictureUrl } from "@/utils/tools";
 import TreasureMenuItem from "@/components/menu/TreasureMenuItem.vue";
+import icons from "@/data/svg";
 
 const props = defineProps<{
   menus: Array<MenuLinkItem>;
@@ -58,6 +63,12 @@ $menuOpenWidth: 300px;
 .treasure-menu {
   user-select: none;
 
+  .menu-icon {
+    width: 24px;
+    height: 24px;
+    fill: #565656;
+  }
+
   :deep(.menu) {
     position: fixed;
     top: 0;
@@ -66,33 +77,10 @@ $menuOpenWidth: 300px;
     flex-shrink: 0;
     width: #{$menuOpenWidth};
     transition: width 0.4s ease-in-out;
-    background-color: #fff;
+    background-color: #f4f4f4;
 
     &.close {
       width: #{$menuCloseWidth};
-    }
-  }
-
-  :deep(.menu-item) {
-    overflow: hidden;
-    transition: background-color 0.2s ease-in-out;
-
-    &:hover {
-      border-radius: 4px;
-      color: #fff;
-      background-color: #f5f5f5;
-
-      .menu-title {
-        color: #da4545;
-      }
-    }
-
-    .down-icon {
-      fill: #878787;
-    }
-
-    .menu-title {
-      font-size: 16px;
     }
   }
 
@@ -109,6 +97,40 @@ $menuOpenWidth: 300px;
     font-size: 16px;
     color: #333;
     cursor: pointer;
+  }
+}
+
+:deep(.menu-item) {
+  overflow: hidden;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    border-radius: 4px;
+    color: #fff;
+    background-color: #e5e5e5;
+
+    .menu-title {
+      color: #da4545;
+    }
+
+    .menu-icon {
+      fill: #da4545;
+      transform: translate(-2px, -2px);
+      filter: drop-shadow(2px 2px 2px #0009);
+    }
+  }
+
+  .menu-icon {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .down-icon {
+    fill: #878787;
+  }
+
+  .menu-title {
+    font-size: 16px;
+    color: #565656;
   }
 }
 

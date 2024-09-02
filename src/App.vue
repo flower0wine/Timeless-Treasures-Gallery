@@ -11,7 +11,7 @@
       </Drawer>
       <div class="treasure-content" :class="{ 'menu-close': !menuVisible }">
         <div class="treasure-header">
-          <div class="site-info" v-if="samllScreen || menuVisible">
+          <div class="site-info" v-if="smallScreen || menuVisible">
             <a href="/">
               <TreasureLogo />
             </a>
@@ -42,7 +42,7 @@ const throttleHandleScreenResize = throttle(handleScreenResize, 200);
 const menuVisible = ref(true);
 const drawerMenuVisible = ref(false);
 
-const samllScreen = ref(false);
+const smallScreen = ref(false);
 
 function handleMenuBtnClick() {
   menuVisible.value = !menuVisible.value;
@@ -52,19 +52,19 @@ function handleScreenResize() {
   const innerWidth = window.innerWidth;
   drawerMenuVisible.value = innerWidth <= 768;
   if (innerWidth <= 768) {
-    samllScreen.value = true;
+    smallScreen.value = true;
     menuVisible.value = false;
   } else {
-    samllScreen.value = false;
+    smallScreen.value = false;
   }
 }
 
 onMounted(() => {
   handleScreenResize();
-  window.addEventListener("resize", throttleHandleScreenResize);
+  window.addEventListener("resize", throttleHandleScreenResize as never);
 });
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", throttleHandleScreenResize);
+  window.removeEventListener("resize", throttleHandleScreenResize as never);
 });
 </script>
 
@@ -72,6 +72,23 @@ onBeforeUnmount(() => {
 $menuCloseWidth: 55px;
 $menuOpenWidth: 300px;
 $treasureHeaderHeight: 60px;
+
+:deep(.menu-list) {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 6px;
+    background-color: #ccc;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 6px;
+  }
+}
 
 @media (max-width: 768px) {
   .treasure-box {
@@ -141,50 +158,13 @@ $treasureHeaderHeight: 60px;
     }
   }
 }
-/*
-
-.treasure-box {
-  display: flex;
-  min-height: 100vh;
-
-  > .container {
-    flex: 1;
-    display: flex;
-  }
-
-  .treasure-content {
-    margin-left: #{$menuOpenWidth};
-    width: calc(100% - #{$menuOpenWidth});
-    height: 100%;
-    transition: margin-left 0.4s ease-in-out;
-
-    &.menu-close {
-      margin-left: #{$menuCloseWidth};
-      width: calc(100% - #{$menuCloseWidth});
-    }
-  }
-
-  :deep(.menu-list) {
-    height: calc(100% - 60px);
-    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-  }
-}
-
-.treasure-content {
-  .treasure-body {
-    height: calc(100% - #{$treasureHeaderHeight});
-    padding: 20px;
-  }
-}
-*/
 
 .treasure-header {
   position: sticky;
   top: 0;
   z-index: 10;
   height: 60px;
-  background-color: #fff;
+  background-color: #f4f4f4;
   box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;

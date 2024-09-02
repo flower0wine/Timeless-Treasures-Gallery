@@ -16,27 +16,34 @@
       @menu-click="handleMenuItemClick"
     >
       <template v-if="props.menuItem.icon" #icon>
-        <TreasureCircleImg
-          size="35px"
-          :src="getPictureUrl(props.menuItem.icon)"
-        />
+        <slot name="icon">
+          <TreasureImg
+            class="menu-icon"
+            size="35px"
+            :src="getPictureUrl(props.menuItem.icon)"
+          />
+        </slot>
       </template>
       <template #content>
-        <div class="menu-title">{{ props.menuItem.title }}</div>
+        <slot name="title">
+          <div class="menu-title">{{ props.menuItem.title }}</div>
+        </slot>
       </template>
     </MenuItem>
 
     <MenuContent v-if="props.menuItem.children" :visible="menuContentVisible">
-      <TreasureMenuItem
-        v-for="(child, index) in props.menuItem.children"
-        :key="index"
-        :menu-item="child"
-        :menu-index="index"
-        :menu-visible="props.menuVisible"
-        :layer="props.layer + 1"
-        @menu-click="handleTreasureMenuItemClick"
-        v-bind="$attrs"
-      />
+      <slot name="content">
+        <TreasureMenuItem
+          v-for="(child, index) in props.menuItem.children"
+          :key="index"
+          :menu-item="child"
+          :menu-index="index"
+          :menu-visible="props.menuVisible"
+          :layer="props.layer + 1"
+          @menu-click="handleTreasureMenuItemClick"
+          v-bind="$attrs"
+        />
+      </slot>
     </MenuContent>
   </RouterLink>
 </template>
@@ -44,7 +51,7 @@
 <script setup lang="ts">
 import MenuItem from "@/components/menu/MenuItem.vue";
 import { getPictureUrl } from "@/utils/tools";
-import TreasureCircleImg from "@/components/TreasureCircleImg.vue";
+import TreasureImg from "@/components/TreasureImg.vue";
 import MenuContent from "@/components/menu/MenuContent.vue";
 import { MenuLinkItem } from "@/menu";
 import { type PropType, ref, watch } from "vue";

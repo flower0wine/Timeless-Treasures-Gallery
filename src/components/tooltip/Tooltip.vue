@@ -11,6 +11,7 @@
       <div
         v-if="tooltipVisible"
         class="treasure-tooltip"
+        :class="props.tooltipClass"
         ref="tooltipRef"
         :style="{
           top: position.top + 'px',
@@ -29,29 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, reactive, ref, useSlots, watch } from "vue";
+import { nextTick, reactive, ref, watch } from "vue";
 import { getElementOffsetLeft, getElementOffsetTop } from "@/utils/element";
-import { warn } from "@/utils/tools";
 
 interface Component {
   $el: HTMLElement;
 }
-
-/* const slots = useSlots();
-
-if (!slots.default) {
-  throw new Error("Tooltip component must have a default slot");
-}
-
-const defaultSlots = slots.default();
-
-if (defaultSlots.length > 1) {
-  warn(
-    "Tooltip component should only have one default slot, the first one will be used",
-  );
-}
-
-const defaultSlot = defaultSlots[0]; */
 
 const tooltipVisible = ref(false);
 
@@ -69,11 +53,15 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: "#fff",
+    default: "",
   },
   backgroundColor: {
     type: String,
-    default: "#000",
+    default: "",
+  },
+  tooltipClass: {
+    type: String,
+    default: "",
   },
 });
 
@@ -126,14 +114,6 @@ watch([() => props.placement, () => props.content, tooltipVisible], () => {
       calculatePosition();
     });
   }
-});
-
-onMounted(() => {
-  /* if (!defaultSlot) {
-    warn(
-      "No available DOM elements were obtained under the default slot of Tooltip",
-    );
-  } */
 });
 </script>
 

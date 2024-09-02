@@ -14,7 +14,7 @@
           @change="handleTabBarChange"
         >
           <template #default="{ item }">
-            {{ item.title }}
+            <div :id="item.code">{{ item.title }}</div>
           </template>
         </TabBar>
         <div class="more">查看更多>></div>
@@ -22,12 +22,23 @@
     </div>
 
     <div class="site-links" v-if="siteLinks">
+      <!--detail 属性为 true，将使用自定义组件来展示网站信息-->
       <Tooltip
-        class="link-tooltip"
+        v-bind="getTooltipOption(siteItem.detail)"
         :content="siteItem.desc"
         v-for="siteItem in siteLinks"
         :key="siteItem.code"
       >
+        <template v-if="siteItem.detail" #content>
+          <LinkDetail
+            :site="{
+              name: siteItem.title,
+              src: siteItem.url,
+              desc: siteItem.desc,
+              icon: siteItem.icon,
+            }"
+          />
+        </template>
         <template #default="{ onMouseenter, onMouseleave, setRef }">
           <Link
             class="site-link-container"
@@ -59,6 +70,7 @@ import { computed, PropType, ref, shallowRef, watch } from "vue";
 import Tooltip from "@/components/tooltip/Tooltip.vue";
 import TabBar from "@/components/tab/TabBar.vue";
 import { useRoute } from "vue-router";
+import LinkDetail from "@/pages/link/LinkDetail.vue";
 
 const route = useRoute();
 
@@ -91,10 +103,34 @@ watch(
   },
 );
 
+function getTooltipOption(useDetail: boolean) {
+  if (useDetail) {
+    return {
+      tooltipClass: "",
+      color: "",
+      backgroundColor: "",
+    };
+  } else {
+    return {
+      tooltipClass: "link-tooltip",
+      color: "#fff",
+      backgroundColor: "#000",
+    };
+  }
+}
+
 function handleTabBarChange(newIndex: number) {
   activeIndex.value = newIndex;
 }
 </script>
+
+<style lang="scss">
+.link-tooltip {
+  max-width: 300px;
+  text-align: center;
+  font-size: 14px;
+}
+</style>
 
 <style scoped lang="scss">
 .tab-bar-container {
@@ -111,9 +147,9 @@ function handleTabBarChange(newIndex: number) {
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    transform: scale(1.05);
+    transform: translate(-2px, -4px);
     background-color: #f5f5f5;
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: 2px 2px 6px #ccc;
   }
 }
 

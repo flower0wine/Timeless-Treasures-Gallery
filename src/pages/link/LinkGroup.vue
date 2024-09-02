@@ -1,6 +1,8 @@
 <template>
   <div class="link-group">
-    <h1>{{ props.groupItem.title }}</h1>
+    <h1 class="link-group-title" :id="props.groupItem.code">
+      <span>{{ props.groupItem.title }}</span>
+    </h1>
     <div
       class="link-group-item"
       v-for="(item, index) in props.groupItem.children"
@@ -24,4 +26,16 @@ const props = defineProps({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.link-group-title {
+  margin-bottom: 20px;
+  user-select: none;
+
+  span {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    white-space: nowrap;
+    background-image: -webkit-linear-gradient(right, #e7cd02, #7407d3);
+  }
+}
+</style>

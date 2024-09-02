@@ -1,16 +1,9 @@
 <template>
-  <img
-    class="lazyload"
-    :class="{ circle: props.circle }"
-    src="@/assets/treasure.png"
-    :style="{ width: props.size, height: props.size }"
-    :data-src="getPictureUrl(props.src)"
-    alt
-  />
+  <TreasureImg :class="{ circle: props.circle }" v-bind="props" />
 </template>
 
 <script setup lang="ts">
-import { getPictureUrl } from "@/utils/tools";
+import TreasureImg from "@/components/TreasureImg.vue";
 
 const props = defineProps({
   size: {
