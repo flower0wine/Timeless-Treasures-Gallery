@@ -1,13 +1,17 @@
 <template>
   <div class="treasure-box">
     <div class="container">
-      <!--<TreasureMenu :menus="MENU_DATA" :menu-visible="menuVisible" />-->
-      <Drawer v-model="menuVisible">
+      <TreasureMenu
+        v-if="!drawerMenuVisible"
+        :menus="MENU_DATA"
+        :menu-visible="menuVisible"
+      />
+      <Drawer v-else v-model="menuVisible">
         <TreasureMenu :menus="MENU_DATA" :menu-visible="true" />
       </Drawer>
       <div class="treasure-content" :class="{ 'menu-close': !menuVisible }">
         <div class="treasure-header">
-          <div class="site-info" v-if="menuVisible">
+          <div class="site-info" v-if="samllScreen || menuVisible">
             <a href="/">
               <TreasureLogo />
             </a>
@@ -27,16 +31,41 @@
 <script setup lang="ts">
 import MenuIcon from "@/components/svg/MenuIcon.vue";
 import TreasureLogo from "@/components/TreasureLogo.vue";
-import { ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import { MENU_DATA } from "@/menu";
 import TreasureMenu from "@/components/menu/TreasureMenu.vue";
 import Drawer from "@/components/drawer/Drawer.vue";
+import { throttle } from "lodash";
+
+const throttleHandleScreenResize = throttle(handleScreenResize, 200);
 
 const menuVisible = ref(true);
+const drawerMenuVisible = ref(false);
+
+const samllScreen = ref(false);
 
 function handleMenuBtnClick() {
   menuVisible.value = !menuVisible.value;
 }
+
+function handleScreenResize() {
+  const innerWidth = window.innerWidth;
+  drawerMenuVisible.value = innerWidth <= 768;
+  if (innerWidth <= 768) {
+    samllScreen.value = true;
+    menuVisible.value = false;
+  } else {
+    samllScreen.value = false;
+  }
+}
+
+onMounted(() => {
+  handleScreenResize();
+  window.addEventListener("resize", throttleHandleScreenResize);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", throttleHandleScreenResize);
+});
 </script>
 
 <style lang="scss" scoped>

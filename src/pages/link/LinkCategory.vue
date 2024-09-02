@@ -23,6 +23,7 @@
 
     <div class="site-links" v-if="siteLinks">
       <Tooltip
+        class="link-tooltip"
         :content="siteItem.desc"
         v-for="siteItem in siteLinks"
         :key="siteItem.code"
