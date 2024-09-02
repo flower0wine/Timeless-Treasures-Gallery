@@ -10,12 +10,12 @@ export interface MenuLinkItem {
   children?: Array<MenuLinkItem>;
 }
 
-function transformMenuData(menus: Array<ILinkItem>): Array<MenuLinkItem> {
+function transformMenuData<T, R>(menus: Array<T>): Array<R> {
   if (!menus || menus.length === 0) {
     return [];
   }
 
-  const result: Array<MenuLinkItem> = [];
+  const result: Array<R> = [];
 
   let isAllLeaf = true;
 
@@ -35,7 +35,7 @@ function transformMenuData(menus: Array<ILinkItem>): Array<MenuLinkItem> {
     }
   }
 
-  return isAllLeaf ? (null as Array<MenuLinkItem>) : result;
+  return isAllLeaf ? (null as Array<R>) : result;
 }
 
 export const MENU_ORIGIN: ReadonlyArray<MenuLinkItem> = Object.freeze([
@@ -44,7 +44,13 @@ export const MENU_ORIGIN: ReadonlyArray<MenuLinkItem> = Object.freeze([
     title: "链接",
     route: LINK_CODE,
     code: "link",
-    children: transformMenuData(linkData),
+    children: transformMenuData<ILinkItem, MenuLinkItem>(linkData),
+  },
+  {
+    icon: "picture.png",
+    title: "设置",
+    route: LINK_CODE,
+    code: "setting",
   },
 ]);
 

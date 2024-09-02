@@ -35,14 +35,12 @@ const data: Array<ILinkItem> = [
           {
             title: "常用 AI 图像工具",
             code: "ai-image-tools",
-            children: [
-              {
-                title: "吐司 AI",
-                url: "https://www.deepai.org/machine-learning-model/waifu2x",
-                desc: "AI 图像修复、超分辨率、风格迁移、图像增强等",
-                icon: "picture.png",
-              },
-            ],
+            children: Array(10).fill({
+              title: "吐司 AI",
+              url: "https://www.deepai.org/machine-learning-model/waifu2x",
+              desc: "AI 图像修复、超分辨率、风格迁移、图像增强等",
+              icon: "picture.png",
+            }),
           },
           {
             title: "AI 插画生成",

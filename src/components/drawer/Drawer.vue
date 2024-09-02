@@ -13,12 +13,14 @@
         <slot name="default"></slot>
       </div>
     </Transition>
+    <div class="drawer-mask" v-show="modelValue" @click="handleClose"></div>
   </Teleport>
 </template>
 
 <script setup lang="ts">
 import CloseIcon from "@/components/svg/CloseIcon.vue";
 import { computed } from "vue";
+import { warn } from "@/utils/tools";
 
 const props = defineProps({
   modelValue: {
@@ -40,7 +42,7 @@ const props = defineProps({
       if (value === "left" || value === "right") {
         return true;
       }
-      console.warn(`Invalid position value: ${value}, use "left" or "right"`);
+      warn(`Invalid position value: ${value}, use "left" or "right"`);
       return false;
     },
   },
@@ -50,7 +52,7 @@ const props = defineProps({
   },
   showClose: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 
@@ -76,7 +78,10 @@ const computedStyle = computed(() => {
     };
   }
 
+  const placement = props.position === "left" ? "left" : "right";
+
   return {
+    [placement]: 0,
     width: props.width,
     ...getStyleByPosition(props.position === "left"),
   };
@@ -91,8 +96,11 @@ function handleClose() {
 .drawer {
   position: fixed;
   top: 0;
+  z-index: 1000;
   width: 300px;
   height: 100vh;
+  // 子元素即使使用 fixed 也会被限制在 drawer 内部
+  filter: blur(0);
   background-color: #fff;
 
   :deep(.close-btn) {
@@ -117,6 +125,16 @@ function handleClose() {
   }
 }
 
+.drawer-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
 .slide-left-enter-active,
 .slide-right-enter-active,
 .slide-left-leave-active,
@@ -124,16 +142,20 @@ function handleClose() {
   transition: all 0.3s ease;
 }
 
-.slide-left-enter {
+.slide-left-enter-from,
+.slide-left-leave-to {
   transform: translateX(-100%);
 }
 
-.slide-right-enter {
+.slide-right-enter-from,
+.slide-right-leave-to {
   transform: translateX(100%);
 }
 
-.slide-left-leave-to,
-.slide-right-enter {
+.slide-left-enter-to,
+.slide-right-enter-to,
+.slide-left-leave-from,
+.slide-right-leave-from {
   transform: translateX(0);
 }
 </style>

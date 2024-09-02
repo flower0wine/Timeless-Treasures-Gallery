@@ -99,6 +99,10 @@ function handleTabBarChange(newIndex: number) {
 .tab-bar-container {
   display: flex;
   justify-content: space-between;
+
+  :deep(.tab-bar-item) {
+    font-size: 14px;
+  }
 }
 
 .site-link-container {
@@ -113,8 +117,7 @@ function handleTabBarChange(newIndex: number) {
 }
 
 .site-link-box {
-  width: 200px;
-  height: 70px;
+  height: 100%;
 }
 
 .category-header {
@@ -149,6 +152,9 @@ function handleTabBarChange(newIndex: number) {
 }
 
 .site-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
   margin: 20px 0;
 }
 </style>
