@@ -1,5 +1,9 @@
 # 臻宝轩（Treasure）
 
+<p align="center">
+  <img style="filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));" src="./src/assets/treasure.png" height="240" alt="臻宝轩" />
+</p>
+
 正如项目名称所言，这个是用来保存你所收藏的一切东西，臻宝轩诞生的原因是为了解决
 自己所收藏的东西太多，但是又没有一个工具可以用来检索和展示自己的收藏。所以就自己
 打造了这个一个 `响应式网页应用`。
