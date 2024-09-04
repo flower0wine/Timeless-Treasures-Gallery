@@ -5,6 +5,7 @@
         v-if="!drawerMenuVisible"
         :menus="MENU_DATA"
         :menu-visible="menuVisible"
+        @menu-click="handleClickMenuItem"
       />
       <Drawer v-else v-model="menuVisible">
         <TreasureMenu
@@ -64,7 +65,6 @@ function handleScreenResize() {
 }
 
 function handleClickMenuItem() {
-  console.log("handleClickMenuItem");
   menuVisible.value = true;
 }
 

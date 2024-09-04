@@ -1,5 +1,6 @@
 <template>
   <img
+    v-if="visible"
     class="lazyload"
     :class="{ circle: props.circle }"
     src="@/assets/treasure.png"
@@ -11,6 +12,7 @@
 
 <script setup lang="ts">
 import { getPictureUrl } from "@/utils/tools";
+import { nextTick, ref, watch } from "vue";
 
 const props = defineProps({
   size: {
@@ -22,6 +24,18 @@ const props = defineProps({
     default: "",
   },
 });
+
+const visible = ref(true);
+
+watch(
+  () => props.src,
+  () => {
+    visible.value = false;
+    nextTick(() => {
+      visible.value = true;
+    });
+  },
+);
 </script>
 
 <style scoped lang="scss"></style>

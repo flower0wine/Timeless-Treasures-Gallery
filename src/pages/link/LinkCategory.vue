@@ -49,7 +49,7 @@
           >
             <LinkBox
               class="site-link-box"
-              :icon-url="getPictureUrl(siteItem.icon)"
+              :icon-url="siteItem.icon"
               :title="siteItem.title"
               :desc="siteItem.desc"
             />
