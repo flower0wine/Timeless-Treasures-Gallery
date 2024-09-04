@@ -7,7 +7,11 @@
         :menu-visible="menuVisible"
       />
       <Drawer v-else v-model="menuVisible">
-        <TreasureMenu :menus="MENU_DATA" :menu-visible="true" />
+        <TreasureMenu
+          :menus="MENU_DATA"
+          :menu-visible="true"
+          @menu-click="handleClickMenuItem"
+        />
       </Drawer>
       <div class="treasure-content" :class="{ 'menu-close': !menuVisible }">
         <div class="treasure-header">
@@ -57,6 +61,11 @@ function handleScreenResize() {
   } else {
     smallScreen.value = false;
   }
+}
+
+function handleClickMenuItem() {
+  console.log("handleClickMenuItem");
+  menuVisible.value = true;
 }
 
 onMounted(() => {

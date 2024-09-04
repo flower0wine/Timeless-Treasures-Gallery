@@ -40,7 +40,7 @@ function transformMenuData<T, R>(menus: Array<T>): Array<R> {
 
 export const MENU_ORIGIN: ReadonlyArray<MenuLinkItem> = Object.freeze([
   {
-    icon: "LinkIcon",
+    icon: "link.png",
     title: "链接",
     route: LINK_CODE,
     code: "link",
