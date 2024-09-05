@@ -1,6 +1,6 @@
 {
   "name": "treasure",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "packageManager": "pnpm@8.15.2",
   "author": {
     "name": "flowerwine",
