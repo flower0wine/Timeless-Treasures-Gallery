@@ -1,3 +1,23 @@
+### 0.0.2 (2024-09-05)
+
+### ✏️Documentation | 文档
+
+- 介绍项目目的与进度 8c0dcaf
+- README.md 文件添加臻宝轩图标 7aa73f8
+
+### 🐛 Bug Fixes | Bug 修复
+
+- 修复 props.src 变化时，TreasureImg 图片不变化的问题 5f76967
+
+### ✨ Features | 新功能
+
+- 添加了一些网址 0a2cbbe
+- 添加 git commit 规范，以及添加 stylelint 规范 css c93409c
+- 添加自动化版本管理工具，CHNAGELOG 自动生成 507a49b
+- 完善展示样式 d1859e6
+- 增加 Tooltip 组件 c57adf0
+- 臻宝轩框架搭建完成 f1faa6f
+
 ### 0.0.1 (2024-09-02)
 
 初步具有一定功能的臻宝轩发布！目前臻宝轩支持展示网址链接。以后会增加诸如图片、视频、文章、
