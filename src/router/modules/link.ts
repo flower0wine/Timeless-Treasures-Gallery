@@ -4,6 +4,6 @@ export default [
   {
     path: "/link",
     name: LINK_CODE,
-    component: () => import("@/pages/link/index.vue"),
+    component: () => import("@/pages/link/Index.vue"),
   },
 ];

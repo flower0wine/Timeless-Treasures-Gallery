@@ -1,6 +1,6 @@
 {
   "name": "treasure",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "packageManager": "pnpm@8.15.2",
   "author": {
     "name": "flowerwine",
@@ -8,10 +8,9 @@
   },
   "description": "臻宝轩，这是一个塞下你所有宝藏的地方",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && babel dist --out-dir dist --extensions \".js,.vue,.ts,.tsx\"",
+    "dev": "cross-env NODE_ENV=development vite",
+    "build": "cross-env NODE_ENV=production vite build",
     "preview": "vite preview",
-    "build-only": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write . && git add -A .",
@@ -53,6 +52,7 @@
     "not dead"
   ],
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.25.4",
     "@babel/polyfill": "^7.12.1",
     "lazysizes": "^5.3.2",
     "lodash": "^4.17.21",
@@ -74,6 +74,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.14.5",
+    "@types/vue": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "@typescript-eslint/parser": "^8.2.0",
     "@vitejs/plugin-vue": "^5.0.5",
@@ -82,6 +83,7 @@
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
     "chalk": "^4.1.2",
+    "cross-env": "^7.0.3",
     "enquirer": "^2.3.6",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^9.1.0",
