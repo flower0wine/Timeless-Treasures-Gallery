@@ -53,3 +53,7 @@ pnpm dev
 - tooltip
 - drawer
 - 等等均位于 src/components 目录下
+
+### 侵权问题
+
+网站引用了其他网站的 favicon 图标，除此之外其他的图标均由 Midjourney 生成，图片绝对不会有侵权。
