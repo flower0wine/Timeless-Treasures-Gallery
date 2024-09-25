@@ -350,6 +350,18 @@ const data: Array<ILinkItem> = [
                 desc: "JavaScript正则表达式可视化工具",
                 icon: "regulex.png",
               },
+              {
+                title: "【文章】摸鱼神器与 AI 视频创作工具",
+                url: "https://www.w2solo.com/topics/5019",
+                desc: "很好的一篇文章",
+                icon: "",
+              },
+              {
+                title: "w2solo",
+                url: "https://www.w2solo.com/",
+                desc: "独立开发者",
+                icon: "",
+              },
             ],
           },
         ],

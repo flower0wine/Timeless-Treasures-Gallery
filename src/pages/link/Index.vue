@@ -14,5 +14,6 @@ import LinkGroup from "@/pages/link/LinkGroup.vue";
 <style scoped lang="scss">
 .link-page {
   height: 1200px;
+  padding: 20px;
 }
 </style>

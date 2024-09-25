@@ -126,7 +126,6 @@ $treasureHeaderHeight: 60px;
   .treasure-content {
     .treasure-body {
       height: calc(100% - #{$treasureHeaderHeight});
-      padding: 20px;
     }
   }
 }
@@ -163,7 +162,6 @@ $treasureHeaderHeight: 60px;
   .treasure-content {
     .treasure-body {
       height: calc(100% - #{$treasureHeaderHeight});
-      padding: 20px;
     }
   }
 }
