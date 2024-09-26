@@ -144,7 +144,7 @@ $treasureHeaderHeight: 60px;
       margin-left: #{$menuOpenWidth};
       width: calc(100% - #{$menuOpenWidth});
       height: 100%;
-      transition: margin-left 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
 
       &.menu-close {
         margin-left: #{$menuCloseWidth};
