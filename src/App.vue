@@ -44,7 +44,7 @@ import { throttle } from "lodash";
 
 const throttleHandleScreenResize = throttle(handleScreenResize, 200);
 
-const menuVisible = ref(true);
+const menuVisible = ref(false);
 const drawerMenuVisible = ref(false);
 
 const smallScreen = ref(false);

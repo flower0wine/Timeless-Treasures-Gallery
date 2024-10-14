@@ -1,5 +1,5 @@
 import { LINK_CODE } from "@/menu-code";
-import linkData, { ILinkItem } from "@/data/link";
+import linkData, { LinkItem } from "@/data/link";
 import { cloneDeep } from "lodash";
 
 export interface MenuLinkItem {
@@ -44,7 +44,7 @@ export const MENU_ORIGIN: ReadonlyArray<MenuLinkItem> = Object.freeze([
     title: "链接",
     route: LINK_CODE,
     code: "link",
-    children: transformMenuData<ILinkItem, MenuLinkItem>(linkData),
+    children: transformMenuData<LinkItem, MenuLinkItem>(linkData),
   },
 ]);
 

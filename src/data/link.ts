@@ -1,28 +1,19 @@
-export interface SiteItem {
-  title: string;
-  url: string;
-  desc: string;
-  icon: string;
-  detail?: boolean;
-}
-
-export interface CategoryItem {
-  title: string;
-  icon?: string;
-  desc?: string;
-  children: Array<SiteItem>;
-}
-
 export interface LinkItem {
   title: string;
-  code: string;
-  icon: string;
-  children: Array<LinkItem | SiteItem | CategoryItem>;
+  url?: string;
+  desc?: string;
+  icon?: string;
+  detail?: boolean;
+  code?: string;
+  children?: Array<LinkItem>;
 }
 
-export type ILinkItem = LinkItem | SiteItem | CategoryItem;
-
-const data: Array<ILinkItem> = [
+const data: Array<LinkItem> = [
+  {
+    title: "AI 工具集",
+    code: "ai-tools",
+    icon: "ai.png",
+  },
   {
     title: "AI 工具集",
     code: "ai-tools",

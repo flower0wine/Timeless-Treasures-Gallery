@@ -63,10 +63,9 @@
 <script setup lang="ts">
 import Link from "@/components/link/Link.vue";
 import LinkBox from "@/components/link/LinkBox.vue";
-import { getPictureUrl } from "@/utils/tools";
-import { ILinkItem } from "@/data/link.ts";
+import { LinkItem } from "@/data/link.ts";
 import icons from "@/data/svg";
-import { computed, PropType, ref, shallowRef, watch } from "vue";
+import { computed, ref, shallowRef, watch } from "vue";
 import Tooltip from "@/components/tooltip/Tooltip.vue";
 import TabBar from "@/components/tab/TabBar.vue";
 import { useRoute } from "vue-router";
@@ -74,12 +73,9 @@ import LinkDetail from "@/pages/link/LinkDetail.vue";
 
 const route = useRoute();
 
-const props = defineProps({
-  categoryItem: {
-    type: Object as PropType<ILinkItem>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  categoryItem: LinkItem;
+}>();
 
 const activeIndex = ref<number>(0);
 

@@ -15,12 +15,12 @@
 
 <script setup lang="ts">
 import { PropType } from "vue";
-import { ILinkItem } from "@/data/link";
+import { LinkItem } from "@/data/link";
 import LinkCategory from "@/pages/link/LinkCategory.vue";
 
 const props = defineProps({
   groupItem: {
-    type: Object as PropType<ILinkItem>,
+    type: Object as PropType<LinkItem>,
     required: true,
   },
 });
